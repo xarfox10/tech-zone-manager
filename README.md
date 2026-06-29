@@ -1,7 +1,5 @@
 # TECH ZONE Manager
 
-Build. Inks. Connect.
-
 An offline desktop business management system built specifically for TECH ZONE.
 
 ## Version
