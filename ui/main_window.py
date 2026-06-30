@@ -5,7 +5,11 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QWidget,
     QVBoxLayout,
+    QStackedWidget,
 )
+
+from pages.dashboard_page import DashboardPage
+from pages.inventory_page import InventoryPage
 
 
 class MainWindow(QMainWindow):
@@ -57,15 +61,27 @@ class MainWindow(QMainWindow):
         sidebar_widget.setFixedWidth(220)
 
         # Content
-        content_layout = QVBoxLayout()
+        # Pages
+        self.stack = QStackedWidget()
 
-        self.content = QLabel("Welcome to TECH ZONE Manager!")
+        self.dashboard_page = DashboardPage()
+        self.inventory_page = InventoryPage()
 
-        content_layout.addWidget(self.content)
+        self.stack.addWidget(self.dashboard_page)
+        self.stack.addWidget(self.inventory_page)
 
         # Add to main layout
         main_layout.addWidget(sidebar_widget)
-        main_layout.addLayout(content_layout)
+        main_layout.addWidget(self.stack)
 
     def change_page(self, page):
-        self.content.setText(f"You clicked: {page}")
+
+        if page == "Dashboard":
+            self.stack.setCurrentWidget(
+                self.dashboard_page
+        )
+
+        elif page == "Inventory":
+            self.stack.setCurrentWidget(
+                self.inventory_page
+        )
