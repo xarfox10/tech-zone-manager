@@ -7,6 +7,8 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QTableWidget,
     QTableWidgetItem,
+    QHeaderView,
+    QAbstractItemView,
 )
 
 from dialogs.item_dialog import ItemDialog
@@ -42,14 +44,24 @@ class InventoryPage(QWidget):
 
         self.table.setColumnCount(4)
 
-        self.table.setHorizontalHeaderLabels(
-            [
-                "Item",
-                "Category",
-                "Stock",
-                "Price",
-            ]
-        )
+        self.table.setHorizontalHeaderLabels([
+            "Item",
+         "Category",
+         "Stock",
+         "Price",
+])
+
+        self.table.horizontalHeader().setSectionResizeMode(
+            QHeaderView.Stretch
+)
+
+        self.table.setAlternatingRowColors(True)
+        self.table.setEditTriggers(
+            QAbstractItemView.NoEditTriggers
+)
+        self.table.setSelectionBehavior(
+            QAbstractItemView.SelectRows
+)
 
         layout.addWidget(title)
         layout.addLayout(top_bar)
