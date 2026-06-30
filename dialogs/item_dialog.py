@@ -1,3 +1,4 @@
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import (
     QDialog,
     QLabel,
@@ -6,9 +7,9 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QHBoxLayout,
 )
-
-
 class ItemDialog(QDialog):
+
+    item_saved = Signal(dict)
 
     def __init__(self):
         super().__init__()
@@ -58,6 +59,8 @@ class ItemDialog(QDialog):
 
         self.save_button = QPushButton("Save")
 
+        self.save_button.clicked.connect(self.save_item)
+
         self.cancel_button = QPushButton("Cancel")
 
         button_layout.addStretch()
@@ -71,3 +74,17 @@ class ItemDialog(QDialog):
         self.setLayout(layout)
 
         self.cancel_button.clicked.connect(self.close)
+    
+    def save_item(self):
+
+        item = {
+            "name": self.name_input.text(),
+            "category": self.category_input.text(),
+            "stock": self.stock_input.text(),
+            "price": self.price_input.text(),
+            "barcode": self.barcode_input.text(),
+    }
+
+        self.item_saved.emit(item)
+
+        self.accept()

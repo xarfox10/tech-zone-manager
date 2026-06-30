@@ -6,6 +6,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QVBoxLayout,
     QTableWidget,
+    QTableWidgetItem,
 )
 
 from dialogs.item_dialog import ItemDialog
@@ -37,11 +38,11 @@ class InventoryPage(QWidget):
         top_bar.addStretch()
         top_bar.addWidget(search_box)
 
-        table = QTableWidget()
+        self.table = QTableWidget()
 
-        table.setColumnCount(4)
+        self.table.setColumnCount(4)
 
-        table.setHorizontalHeaderLabels(
+        self.table.setHorizontalHeaderLabels(
             [
                 "Item",
                 "Category",
@@ -52,7 +53,7 @@ class InventoryPage(QWidget):
 
         layout.addWidget(title)
         layout.addLayout(top_bar)
-        layout.addWidget(table)
+        layout.addWidget(self.table)
 
         self.setLayout(layout)
 
@@ -60,4 +61,17 @@ class InventoryPage(QWidget):
 
         dialog = ItemDialog()
 
+        dialog.item_saved.connect(self.add_item_to_table)
+
         dialog.exec()
+
+    def add_item_to_table(self, item):
+
+        row = self.table.rowCount()
+
+        self.table.insertRow(row)
+
+        self.table.setItem(row, 0, QTableWidgetItem(item["name"]))
+        self.table.setItem(row, 1, QTableWidgetItem(item["category"]))
+        self.table.setItem(row, 2, QTableWidgetItem(item["stock"]))
+        self.table.setItem(row, 3, QTableWidgetItem(item["price"]))
