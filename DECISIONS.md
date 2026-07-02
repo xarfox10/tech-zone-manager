@@ -69,3 +69,13 @@ Status:
 Reason:
 
 Cashiers should rarely need the mouse.
+
+## Decision  #006
+
+Product Philosophy
+
+- One product = one identity.
+- Stock updates should never erase previous purchase history.
+- Inventory history will record supplier, invoice number, quantity, unit cost, and received date.
+- Dashboard focuses on operational awareness.
+- Reports focus on accounting, history, and compliance.

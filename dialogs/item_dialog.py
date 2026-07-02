@@ -11,7 +11,7 @@ class ItemDialog(QDialog):
 
     item_saved = Signal(dict)
 
-    def __init__(self):
+    def __init__(self, item=None):
         super().__init__()
 
         self.setWindowTitle("New Item")
@@ -19,6 +19,7 @@ class ItemDialog(QDialog):
         self.setFixedWidth(400)
 
         layout = QVBoxLayout()
+
 
         # Item Name
         layout.addWidget(QLabel("Item Name"))
@@ -55,6 +56,15 @@ class ItemDialog(QDialog):
 
         layout.addWidget(self.barcode_input)
 
+        if item:
+            self.setWindowTitle("Edit Item")
+
+            self.name_input.setText(item["name"])
+            self.category_input.setText(item["category"])
+            self.stock_input.setText(item["stock"])
+            self.price_input.setText(item["price"])
+            self.barcode_input.setText(item["barcode"])
+
         button_layout = QHBoxLayout()
 
         self.save_button = QPushButton("Save")
@@ -74,6 +84,13 @@ class ItemDialog(QDialog):
         self.setLayout(layout)
 
         self.cancel_button.clicked.connect(self.close)
+
+        if item:
+            self.name_input.setText(item["name"])
+            self.category_input.setText(item["category"])
+            self.stock_input.setText(item["stock"])
+            self.price_input.setText(item["price"])
+            self.barcode_input.setText(item["barcode"])
     
     def save_item(self):
 

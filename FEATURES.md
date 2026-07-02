@@ -57,3 +57,23 @@
 - [ ] Mobile companion
 - [ ] Customer loyalty
 - [ ] SMS notifications
+
+## Inventory
+
+✅ Create New Item
+
+✅ Inventory table displays saved items
+
+✅ Double-click a product to open Edit Item dialog
+
+✅ Item dialog automatically fills existing product information
+
+🔄 Barcode editing supported (barcode storage coming soon)
+
+🔄 Stock movement history (planned)
+
+🔄 Supplier purchase history (planned)
+
+🔄 BIR quarterly inventory reports (planned)
+
+🔄 Excel/PDF export for inventory and sales reports (planned)

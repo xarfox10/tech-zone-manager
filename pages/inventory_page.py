@@ -45,7 +45,7 @@ class InventoryPage(QWidget):
         self.table.setColumnCount(4)
 
         self.table.setHorizontalHeaderLabels([
-            "Item",
+         "Item",
          "Category",
          "Stock",
          "Price",
@@ -54,7 +54,8 @@ class InventoryPage(QWidget):
         self.table.horizontalHeader().setSectionResizeMode(
             QHeaderView.Stretch
 )
-
+        self.table.cellDoubleClicked.connect(self.edit_item)
+        
         self.table.setAlternatingRowColors(True)
         self.table.setEditTriggers(
             QAbstractItemView.NoEditTriggers
@@ -87,3 +88,15 @@ class InventoryPage(QWidget):
         self.table.setItem(row, 1, QTableWidgetItem(item["category"]))
         self.table.setItem(row, 2, QTableWidgetItem(item["stock"]))
         self.table.setItem(row, 3, QTableWidgetItem(item["price"]))
+    
+    def edit_item(self, row, column):
+        item = {
+            "name": self.table.item(row, 0).text(),
+            "category": self.table.item(row, 1).text(),
+            "stock": self.table.item(row, 2).text(),
+            "price": self.table.item(row, 3).text(),
+            "barcode": "",
+}
+
+        dialog = ItemDialog(item)
+        dialog.exec()
