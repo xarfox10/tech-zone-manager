@@ -116,3 +116,7 @@ Stock movements must preserve history instead of overwriting information.
 The system should always explain WHY inventory changed, not only WHAT the current stock is.
 
 Reports must help real business operations, especially inventory tracking, supplier history, and BIR bookkeeping.
+
+## Rule #12
+
+Important business actions must require appropriate authorization. The system should protect users from costly mistakes while remaining fast and simple for everyday work.

@@ -77,3 +77,13 @@
 🔄 BIR quarterly inventory reports (planned)
 
 🔄 Excel/PDF export for inventory and sales reports (planned)
+
+## Security
+
+🔄 Manager PIN for sensitive actions
+
+🔄 Role-based permissions (Owner, Manager, Cashier)
+
+🔄 Approval required for inventory adjustments, price changes, deletions, and financial reports
+
+🔄 Audit log records who approved sensitive actions

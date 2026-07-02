@@ -88,7 +88,16 @@ class InventoryPage(QWidget):
         self.table.setItem(row, 1, QTableWidgetItem(item["category"]))
         self.table.setItem(row, 2, QTableWidgetItem(item["stock"]))
         self.table.setItem(row, 3, QTableWidgetItem(item["price"]))
-    
+
+    def update_item(self, item):
+
+        row = self.sender().row
+
+        self.table.setItem(row, 0, QTableWidgetItem(item["name"]))
+        self.table.setItem(row, 1, QTableWidgetItem(item["category"]))
+        self.table.setItem(row, 2, QTableWidgetItem(item["stock"]))
+        self.table.setItem(row, 3, QTableWidgetItem(item["price"]))
+
     def edit_item(self, row, column):
         item = {
             "name": self.table.item(row, 0).text(),
@@ -98,5 +107,9 @@ class InventoryPage(QWidget):
             "barcode": "",
 }
 
-        dialog = ItemDialog(item)
+        dialog = ItemDialog(item, row)
+
+        dialog.item_saved.connect(self.update_item)
+
         dialog.exec()
+    
