@@ -79,3 +79,24 @@ Product Philosophy
 - Inventory history will record supplier, invoice number, quantity, unit cost, and received date.
 - Dashboard focuses on operational awareness.
 - Reports focus on accounting, history, and compliance.
+
+## Decision #007
+
+Authorization Philosophy
+
+* Everyday work should remain fast.
+* Sensitive actions require manager approval.
+* Authorization protects the business, not just against unauthorized users but also against accidental mistakes.
+* Every approved sensitive action should be recorded in the audit log.
+
+### DECISION #008
+
+Adopted the "POS First Workflow" philosophy.
+
+The POS will always support two methods of adding products:
+- Barcode scanning (primary)
+- Intelligent search with auto-suggestions (backup)
+
+Both methods must behave identically and use the same engine logic.
+
+The Inventory page is reserved for inventory management and must never be required during a sale.

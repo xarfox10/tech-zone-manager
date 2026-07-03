@@ -120,3 +120,19 @@ Reports must help real business operations, especially inventory tracking, suppl
 ## Rule #12
 
 Important business actions must require appropriate authorization. The system should protect users from costly mistakes while remaining fast and simple for everyday work.
+
+## Rule #13 
+
+The system must preserve business history instead of overwriting it. Whenever practical, new business events (sales, restocks, adjustments, approvals) should be recorded as transactions, allowing the current state to be calculated from history rather than replacing previous information.
+
+## RULE #14 — POS FIRST WORKFLOW
+
+The POS must always prioritize speed and cashier efficiency.
+
+1. Barcode scanning is the primary method of adding items to a sale.
+2. Intelligent search is the backup method when scanning is unavailable.
+3. Both methods must produce the exact same result.
+4. The POS must never require opening the Inventory page to sell an item.
+5. After successfully adding an item, the search field must automatically clear and regain focus, ready for the next scan or search.
+6. The cashier should rarely need to use the mouse during a normal transaction.
+

@@ -12,11 +12,13 @@ from PySide6.QtWidgets import (
 )
 
 from dialogs.item_dialog import ItemDialog
+from services.item_service import ItemService
 
 class InventoryPage(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.item_service = ItemService()
 
         layout = QVBoxLayout()
 
@@ -42,13 +44,14 @@ class InventoryPage(QWidget):
 
         self.table = QTableWidget()
 
-        self.table.setColumnCount(4)
+        self.table.setColumnCount(5)
 
         self.table.setHorizontalHeaderLabels([
-         "Item",
-         "Category",
-         "Stock",
-         "Price",
+            "Item ID",
+            "Item",
+            "Category",
+            "Stock",
+            "Price",
 ])
 
         self.table.horizontalHeader().setSectionResizeMode(
@@ -80,14 +83,24 @@ class InventoryPage(QWidget):
 
     def add_item_to_table(self, item):
 
+        item = self.item_service.create_item(
+            name=item["name"],
+            category=item["category"],
+            stock=item["stock"],
+            price=item["price"],
+            barcode=item["barcode"],
+)
+        print(item.item_id)
+
         row = self.table.rowCount()
 
         self.table.insertRow(row)
 
-        self.table.setItem(row, 0, QTableWidgetItem(item["name"]))
-        self.table.setItem(row, 1, QTableWidgetItem(item["category"]))
-        self.table.setItem(row, 2, QTableWidgetItem(item["stock"]))
-        self.table.setItem(row, 3, QTableWidgetItem(item["price"]))
+        self.table.setItem(row, 0, QTableWidgetItem(item.item_id))
+        self.table.setItem(row, 1, QTableWidgetItem(item.name))
+        self.table.setItem(row, 2, QTableWidgetItem(item.category))
+        self.table.setItem(row, 3, QTableWidgetItem(str(item.stock)))
+        self.table.setItem(row, 4, QTableWidgetItem(str(item.price)))
 
     def update_item(self, item):
 
