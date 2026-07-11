@@ -102,6 +102,11 @@ class InventoryPage(QWidget):
         self.table.setItem(row, 3, QTableWidgetItem(str(item.stock)))
         self.table.setItem(row, 4, QTableWidgetItem(str(item.price)))
 
+        print("Items inside ItemService:")
+
+        for item in self.item_service.get_all_items():
+            print(item.item_id, "-", item.name)
+
     def update_item(self, item):
 
         row = self.sender().row
