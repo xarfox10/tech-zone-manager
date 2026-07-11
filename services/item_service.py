@@ -1,18 +1,12 @@
-from database.database import Database
 from repositories.item_repository import ItemRepository
 from models.item import Item
+from engine.id_engine import IdEngine
 
 class ItemService:
 
     def __init__(self):
-        self.next_id = 1
         self.repository = ItemRepository()
-        self.database = Database()
-
-    def generate_item_id(self):
-        item_id = f"TZ-{self.next_id:06d}"
-        self.next_id += 1
-        return item_id
+        self.id_engine = IdEngine()
 
     def create_item(
         self,
@@ -24,7 +18,7 @@ class ItemService:
     ):
 
         item = Item(
-            item_id=self.generate_item_id(),
+            item_id=self.id_engine.generate("TZ"),
             name=name,
             category=category,
             stock=stock,
@@ -47,14 +41,14 @@ class ItemService:
         return None
     
     def update_item(
-    self,
-    item_id,
-    name,
-    category,
-    stock,
-    price,
-    barcode,
-):
+        self,
+        item_id,
+        name,
+        category,
+        stock,
+        price,
+        barcode,
+    ):
 
         item = self.get_item_by_id(item_id)
 
@@ -67,6 +61,8 @@ class ItemService:
         item.price = price
         item.barcode = barcode
 
+        self.repository.update(item)
+        
         return item
 
     def item_exists(self, item_id):

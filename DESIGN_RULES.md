@@ -136,3 +136,30 @@ The POS must always prioritize speed and cashier efficiency.
 5. After successfully adding an item, the search field must automatically clear and regain focus, ready for the next scan or search.
 6. The cashier should rarely need to use the mouse during a normal transaction.
 
+## Rule #15
+
+Every layer communicates only with the layer directly below it.
+
+UI → Service → Engine → Repository → Database
+
+A layer must never skip another layer to access lower-level implementation details.
+
+This rule is what gave us:
+
+InventoryPage → ItemService
+ItemService → IdEngine
+IdEngine → IdRepository
+IdRepository → Database
+
+## Rule #16
+
+Every inventory movement is a permanent business event.
+
+Every inventory change must preserve:
+
+Identity
+Timestamp
+Reason
+Quantity
+
+Reports such as daily, monthly, quarterly, and annual summaries should be generated from these recorded events rather than entered manually.

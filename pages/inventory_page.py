@@ -66,10 +66,11 @@ class InventoryPage(QWidget):
         self.table.setSelectionBehavior(
             QAbstractItemView.SelectRows
 )
-
         layout.addWidget(title)
         layout.addLayout(top_bar)
         layout.addWidget(self.table)
+
+        self.load_items()
 
         self.setLayout(layout)
 
@@ -107,23 +108,56 @@ class InventoryPage(QWidget):
         for item in self.item_service.get_all_items():
             print(item.item_id, "-", item.name)
 
+    def load_items(self):
+
+        self.table.setRowCount(0)
+
+        items = self.item_service.get_all_items()
+
+        for item in items:
+
+            row = self.table.rowCount()
+
+            self.table.insertRow(row)
+
+            self.table.setItem(row, 0, QTableWidgetItem(item.item_id))
+            self.table.setItem(row, 1, QTableWidgetItem(item.name))
+            self.table.setItem(row, 2, QTableWidgetItem(item.category))
+            self.table.setItem(row, 3, QTableWidgetItem(str(item.stock)))
+            self.table.setItem(row, 4, QTableWidgetItem(str(item.price)))
+
     def update_item(self, item):
 
         row = self.sender().row
 
-        self.table.setItem(row, 0, QTableWidgetItem(item["name"]))
-        self.table.setItem(row, 1, QTableWidgetItem(item["category"]))
-        self.table.setItem(row, 2, QTableWidgetItem(item["stock"]))
-        self.table.setItem(row, 3, QTableWidgetItem(item["price"]))
+        updated_item = self.item_service.update_item(
+            item_id=item["item_id"],
+            name=item["name"],
+            category=item["category"],
+            stock=item["stock"],
+            price=item["price"],
+            barcode=item["barcode"],
+        )
+
+        if updated_item is None:
+            return
+
+        self.table.setItem(row, 0, QTableWidgetItem(updated_item.item_id))
+        self.table.setItem(row, 1, QTableWidgetItem(updated_item.name))
+        self.table.setItem(row, 2, QTableWidgetItem(updated_item.category))
+        self.table.setItem(row, 3, QTableWidgetItem(str(updated_item.stock)))
+        self.table.setItem(row, 4, QTableWidgetItem(str(updated_item.price)))
 
     def edit_item(self, row, column):
+
         item = {
-            "name": self.table.item(row, 0).text(),
-            "category": self.table.item(row, 1).text(),
-            "stock": self.table.item(row, 2).text(),
-            "price": self.table.item(row, 3).text(),
+            "item_id": self.table.item(row, 0).text(),
+            "name": self.table.item(row, 1).text(),
+            "category": self.table.item(row, 2).text(),
+            "stock": self.table.item(row, 3).text(),
+            "price": self.table.item(row, 4).text(),
             "barcode": "",
-}
+        }
 
         dialog = ItemDialog(item, row)
 

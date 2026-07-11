@@ -91,6 +91,7 @@ class ItemDialog(QDialog):
     def save_item(self):
 
         item = {
+            "item_id": self.item["item_id"] if self.item else "",
             "name": self.name_input.text(),
             "category": self.category_input.text(),
             "stock": self.stock_input.text(),
